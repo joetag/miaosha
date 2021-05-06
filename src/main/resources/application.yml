@@ -1,0 +1,47 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    # type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: ZHU970414p
+    url: jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: DataHikariCP
+      # 空闲连接数
+      minimum-idle: 5
+      # 空闲连接数最长存活时间，默认是10分钟
+      idle-timeout: 1800000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 127.0.0.1
+    # publisher-confirms: true
+    publisher-returns: true
+  redis:
+    host: 127.0.0.1
+    database: 0
+    port: 6379
+    password: 123456
+  cache:
+    cache-names: menus_cache
+server:
+  port: 8081
+  compression:
+    enabled: true
+fastdfs:
+  nginx:
+    host: http://192.168.91.128/
+mybatis:
+  mapper-locations: classpath:*/mapper/*Mapper.xml
+  type-aliases-package: com.example.miaosha.entity
+
+
+
