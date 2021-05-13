@@ -1,7 +1,9 @@
 package com.example.miaosha.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -13,6 +15,8 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 public class SkGoods implements Serializable {
     private static final long serialVersionUID = -73278331108151298L;
     /**

@@ -17,36 +17,36 @@ import java.io.Serializable;
 public class SkUser implements Serializable {
     private static final long serialVersionUID = -77252011356094272L;
     /**
-    * 用户id
-    */
-    private Object id;
+     * 用户id
+     */
+    private String id;
     /**
-    * 昵称
-    */
+     * 昵称
+     */
     private String nickname;
     /**
-    * MD5(MD5(pass明文+固定salt)+salt
-    */
+     * MD5(MD5(pass明文+固定salt)+salt
+     */
     private String password;
     /**
-    * 混淆盐
-    */
+     * 混淆盐
+     */
     private String salt;
     /**
-    * 头像，云存储的ID
-    */
+     * 头像，云存储的ID
+     */
     private String head;
     /**
-    * 注册时间
-    */
+     * 注册时间
+     */
     private Date registerDate;
     /**
-    * 上次登录时间
-    */
+     * 上次登录时间
+     */
     private Date lastLoginDate;
     /**
-    * 登录次数
-    */
+     * 登录次数
+     */
     private Integer loginCount;
 
 }

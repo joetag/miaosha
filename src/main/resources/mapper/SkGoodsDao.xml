@@ -13,26 +13,55 @@
         <result property="goodsStock" column="goods_stock" jdbcType="INTEGER"/>
     </resultMap>
 
+    <select id="queryAllGoodsVo" resultType="com.example.miaosha.vo.GoodsVo">
+        select
+            g.id as "id", g.goods_stock as "goodsStock", goods_price as "goodsPrice", goods_detail as "goodsDetail",
+            goods_img as "goodsImg", g.goods_title as "goodsTitle", g.goods_name as "goodsName",
+            sg.end_date as "endDate", sg.start_date as "startDate", sg.stock_count as "stockCount", sg.seckill_price as "seckillPrice"
+        from sk_goods g
+                 left join sk_goods_seckill as sg on g.id = sg.id
+    </select>
+
     <!--查询单个-->
     <select id="queryById" resultMap="BaseResultMap">
-        select
-          id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
+        select id,
+               goods_name,
+               goods_title,
+               goods_img,
+               goods_detail,
+               goods_price,
+               goods_stock
         from seckill.sk_goods
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BaseResultMap">
-        select
-          id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
+        select id,
+               goods_name,
+               goods_title,
+               goods_img,
+               goods_detail,
+               goods_price,
+               goods_stock
         from seckill.sk_goods
         limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryGoodsVoById" resultType="com.example.miaosha.vo.GoodsVo">
+        select
+            g.id as "id", g.goods_stock as "goodsStock", goods_price as "goodsPrice", goods_detail as "goodsDetail",
+            goods_img as "goodsImg", g.goods_title as "goodsTitle", g.goods_name as "goodsName",
+            sg.end_date as "endDate", sg.start_date as "startDate", sg.stock_count as "stockCount", sg.seckill_price as "seckillPrice"
+        from sk_goods g
+                 left join sk_goods_seckill as sg on g.id = sg.id
+        where g.id = #{goodsId}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
+        id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
         from seckill.sk_goods
         <where>
             <if test="id != null">
@@ -93,7 +122,9 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from seckill.sk_goods where id = #{id}
+        delete
+        from seckill.sk_goods
+        where id = #{id}
     </delete>
 
 </mapper>
