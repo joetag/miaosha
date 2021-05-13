@@ -3,6 +3,7 @@ package com.example.miaosha.service.impl;
 import com.example.miaosha.entity.SkGoods;
 import com.example.miaosha.dao.SkGoodsDao;
 import com.example.miaosha.service.SkGoodsService;
+import com.example.miaosha.vo.GoodsVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -76,4 +77,17 @@ public class SkGoodsServiceImpl implements SkGoodsService {
     public boolean deleteById(Long id) {
         return this.skGoodsDao.deleteById(id) > 0;
     }
+
+
+    @Override
+    public List<GoodsVo> queryAllGoodsVo() {
+        return skGoodsDao.queryAllGoodsVo();
+    }
+
+
+    @Override
+    public GoodsVo queryGoodsVoById(Long goodsId) {
+        return skGoodsDao.queryGoodsVoById(goodsId);
+    }
+
 }

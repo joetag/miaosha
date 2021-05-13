@@ -2,6 +2,7 @@ package com.example.miaosha.controller;
 
 import com.example.miaosha.entity.SkUser;
 import com.example.miaosha.service.SkUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ public class SkUserController {
      * 服务对象
      */
     @Resource
+    @Autowired
     private SkUserService skUserService;
 
     /**
@@ -28,7 +30,7 @@ public class SkUserController {
      * @return 单条数据
      */
     @GetMapping("/selectOne")
-    public SkUser selectOne(Object id) {
+    public SkUser selectOne(String id) {
         return this.skUserService.queryById(id);
     }
 

@@ -22,7 +22,7 @@ public class RespBean {
      * @return 成功返回的类型
      */
     public static RespBean success(){
-        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBean.success().getMessage(), null);
+        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBeanEnum.SUCCESS.getMessage(), null);
     }
 
     /**
@@ -31,7 +31,7 @@ public class RespBean {
      * @return 成功返回的类型
      */
     public static RespBean success(Object obj){
-        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBean.success().getMessage(), obj);
+        return new RespBean(RespBeanEnum.SUCCESS.getCode(), RespBeanEnum.SUCCESS.getMessage(), obj);
     }
 
     /**
@@ -40,7 +40,7 @@ public class RespBean {
      * @return 返回失败
      */
     public static RespBean error(RespBeanEnum respBeanEnum){
-        return new RespBean(RespBeanEnum.ERROR.getCode(), RespBean.success().getMessage(), null);
+        return new RespBean(RespBeanEnum.ERROR.getCode(), respBeanEnum.getMessage(), null);
     }
 
     /**
@@ -50,6 +50,6 @@ public class RespBean {
      * @return 返回失败
      */
     public static RespBean error(RespBeanEnum respBeanEnum, Object obj){
-        return new RespBean(RespBeanEnum.ERROR.getCode(), RespBean.success().getMessage(), obj);
+        return new RespBean(RespBeanEnum.ERROR.getCode(), respBeanEnum.getMessage(), obj);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.miaosha.service;
 
 import com.example.miaosha.entity.SkGoods;
+import com.example.miaosha.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -55,4 +56,16 @@ public interface SkGoodsService {
      */
     boolean deleteById(Long id);
 
+    /**
+     * 获取商品列表
+     * @return 获取商品列表
+     */
+    List<GoodsVo> queryAllGoodsVo();
+
+    /**
+     *
+     * @param goodsId
+     * @return
+     */
+    GoodsVo queryGoodsVoById(Long goodsId);
 }

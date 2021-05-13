@@ -1,6 +1,7 @@
 package com.example.miaosha.dao;
 
 import com.example.miaosha.entity.SkGoods;
+import com.example.miaosha.vo.GoodsVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -64,4 +65,16 @@ public interface SkGoodsDao {
      */
     int deleteById(Long id);
 
+    /**
+     * 查询所所有的秒杀商品页面
+     * @return
+     */
+    List<GoodsVo> queryAllGoodsVo();
+
+    /**
+     * 根据id来精确查询
+     * @param goodsId
+     * @return
+     */
+    GoodsVo queryGoodsVoById(Long goodsId);
 }
