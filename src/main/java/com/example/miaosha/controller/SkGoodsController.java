@@ -84,7 +84,7 @@ public class SkGoodsController {
         long endTime = goods.getEndDate().getTime();
 
         //0代表秒杀没开始，1代表开始，2代表已经结束
-        int seckillStatus = 0;
+        long seckillStatus = 0;
         long remainSeconds = 0;
 
         long nowTime = System.currentTimeMillis();
@@ -92,7 +92,7 @@ public class SkGoodsController {
         if (nowTime < startTime){
             //秒杀还没有开始
             remainSeconds = (startTime - nowTime) / 1000;
-        }else if (nowTime > startTime){
+        }else if (nowTime > endTime){
             //秒杀已经结束
             seckillStatus = 2;
         }else {
