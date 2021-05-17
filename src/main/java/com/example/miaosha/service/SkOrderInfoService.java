@@ -1,6 +1,10 @@
 package com.example.miaosha.service;
 
+import com.example.miaosha.entity.SkOrder;
 import com.example.miaosha.entity.SkOrderInfo;
+import com.example.miaosha.entity.SkUser;
+import com.example.miaosha.vo.GoodsVo;
+
 import java.util.List;
 
 /**
@@ -51,5 +55,22 @@ public interface SkOrderInfoService {
      * @return 是否成功
      */
     boolean deleteById(Long id);
+
+
+    /**
+     * 通过用户id和物品id来查询订单是否重复
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    SkOrderInfo getOrderByUserIdGoodsId(String userId, Long goodsId);
+
+    /**
+     * 实现秒杀
+     * @param user
+     * @param goodsVo
+     * @return
+     */
+    SkOrderInfo secKill(SkUser user, GoodsVo goodsVo);
 
 }

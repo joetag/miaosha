@@ -105,7 +105,6 @@ public class SkGoodsController {
 
         IWebContext ctx = new WebContext(request, response, request.getServletContext(),
                 request.getLocale(), model.asMap());
-
         return thymeleafViewResolver.getTemplateEngine().process("goodsDetail", ctx);
     }
 }

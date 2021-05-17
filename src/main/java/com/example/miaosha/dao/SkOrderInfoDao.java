@@ -1,5 +1,6 @@
 package com.example.miaosha.dao;
 
+import com.example.miaosha.entity.SkOrder;
 import com.example.miaosha.entity.SkOrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -63,5 +64,13 @@ public interface SkOrderInfoDao {
      * @return 影响行数
      */
     int deleteById(Long id);
+
+    /**
+     * 通过用户id和物品id来查询订单是否重复
+     * @param userId
+     * @param goodsId
+     * @return
+     */
+    SkOrderInfo getOrderByUserIdGoodsId(String userId, Long goodsId);
 
 }

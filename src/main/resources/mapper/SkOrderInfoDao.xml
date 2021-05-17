@@ -75,6 +75,15 @@
         </where>
     </select>
 
+    <select id="getOrderByUserIdGoodsId" resultType="com.example.miaosha.entity.SkOrderInfo">
+        select
+            id, user_id as "userId", goods_id as "goodsId", delivery_addr_id as "deliveryAddrId",
+            goods_name as "goodsName", goods_count as "goodsCount", goods_price as "goodsPrice",
+            order_channel as "orderChannel", status as "status", create_date as "createDate", pay_date as "payDate"
+        from sk_order_info
+        where user_id = #{userId} and goods_id = #{goodsId}
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into seckill.sk_order_info(user_id, goods_id, delivery_addr_id, goods_name, goods_count, goods_price, order_channel, status, create_date, pay_date)

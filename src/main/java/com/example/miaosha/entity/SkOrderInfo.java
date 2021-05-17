@@ -19,7 +19,7 @@ public class SkOrderInfo implements Serializable {
     
     private Long id;
     
-    private Long userId;
+    private String userId;
     
     private Long goodsId;
     

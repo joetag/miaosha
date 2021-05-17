@@ -1,6 +1,9 @@
 package com.example.miaosha.service;
 
 import com.example.miaosha.entity.SkOrder;
+import com.example.miaosha.entity.SkUser;
+import com.example.miaosha.vo.GoodsVo;
+
 import java.util.List;
 
 /**

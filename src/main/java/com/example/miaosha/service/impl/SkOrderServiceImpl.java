@@ -1,11 +1,23 @@
 package com.example.miaosha.service.impl;
 
+import com.example.miaosha.entity.SkGoods;
 import com.example.miaosha.entity.SkOrder;
 import com.example.miaosha.dao.SkOrderDao;
+import com.example.miaosha.entity.SkOrderInfo;
+import com.example.miaosha.entity.SkUser;
+import com.example.miaosha.exception.GlobalException;
+import com.example.miaosha.service.SkGoodsService;
 import com.example.miaosha.service.SkOrderService;
+import com.example.miaosha.vo.GoodsVo;
+import com.example.miaosha.vo.RespBeanEnum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import sun.util.calendar.BaseCalendar;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +30,9 @@ import java.util.List;
 public class SkOrderServiceImpl implements SkOrderService {
     @Resource
     private SkOrderDao skOrderDao;
+
+    @Autowired
+    private SkGoodsService skGoodsService;
 
     /**
      * 通过ID查询单条数据
@@ -76,4 +91,5 @@ public class SkOrderServiceImpl implements SkOrderService {
     public boolean deleteById(Long id) {
         return this.skOrderDao.deleteById(id) > 0;
     }
+
 }

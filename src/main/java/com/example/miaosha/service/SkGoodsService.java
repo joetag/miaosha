@@ -63,7 +63,7 @@ public interface SkGoodsService {
     List<GoodsVo> queryAllGoodsVo();
 
     /**
-     *
+     * 根据物品ID查询秒杀的商品
      * @param goodsId
      * @return
      */
