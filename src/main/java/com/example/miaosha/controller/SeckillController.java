@@ -18,11 +18,13 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * 秒杀
+ *
  * @author kelin
  */
 @Controller
@@ -40,10 +42,9 @@ public class SeckillController {
     ThymeleafViewResolver thymeleafViewResolver;
 
 
-
     @RequestMapping("/doSeckill")
-    public String doSeckill(Model model, HttpServletRequest request, HttpServletResponse response, SkUser user, Long goodsId){
-        if (user == null){
+    public String doSeckill(Model model, HttpServletRequest request, HttpServletResponse response, SkUser user, Long goodsId) {
+        if (user == null) {
             return "login";
         }
         System.out.println("doSeckill");
@@ -53,23 +54,24 @@ public class SeckillController {
         model.addAttribute("goods", goodsVo);
         log.info("{}", goodsVo);
         //查询是否还有库存
-        if (goodsVo.getStockCount() < 1){
+        if (goodsVo.getStockCount() < 1) {
             model.addAttribute("errmsg", RespBeanEnum.SECKILL_OVER.getMessage());
             return "seckillFail";
         }
         //查询是否有重复的订单
         SkOrderInfo skOrder = skOrderInfoService.getOrderByUserIdGoodsId(user.getId(), goodsId);
         log.info("{}", skOrder);
-        if (skOrder != null){
+        if (skOrder != null) {
             model.addAttribute("errmsg", RespBeanEnum.REPEATE_SECKILL.getMessage());
             return "seckillFail";
         }
         SkOrderInfo orderInfo = skOrderInfoService.secKill(user, goodsVo);
         System.out.println("orderInfo");
         log.info("{}", orderInfo);
-        model.addAttribute("orderInfo", orderInfo);
 
+        model.addAttribute("orderInfo", orderInfo);
         return "orderDetail";
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.miaosha.controller;
 
 import com.example.miaosha.entity.SkUser;
 import com.example.miaosha.service.SkUserService;
+import com.example.miaosha.vo.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2021-05-06 15:13:32
  */
 @RestController
-@RequestMapping("/skUser")
+@RequestMapping("/user")
 public class SkUserController {
     /**
      * 服务对象
@@ -34,4 +35,13 @@ public class SkUserController {
         return this.skUserService.queryById(id);
     }
 
+    /**
+     * 用于测试
+     * @param user
+     * @return
+     */
+    @RequestMapping("/info")
+    public RespBean info(SkUser user){
+        return RespBean.success(user);
+    }
 }

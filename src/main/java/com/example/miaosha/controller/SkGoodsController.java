@@ -67,7 +67,8 @@ public class SkGoodsController {
     }
 
     /**
-     *  跳转商品详情页
+     * 跳转商品详情页
+     *
      * @param model
      * @param request
      * @param response
@@ -75,7 +76,7 @@ public class SkGoodsController {
      * @return
      */
     @RequestMapping("/toDetail/{goodsId}")
-    public String toDetail(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable Long goodsId, SkUser user){
+    public String toDetail(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable Long goodsId, SkUser user) {
         model.addAttribute("user", user);
         log.info("{}", user);
         GoodsVo goods = skGoodsService.queryGoodsVoById(goodsId);
@@ -88,14 +89,13 @@ public class SkGoodsController {
         long remainSeconds = 0;
 
         long nowTime = System.currentTimeMillis();
-
-        if (nowTime < startTime){
+        if (nowTime < startTime) {
             //秒杀还没有开始
             remainSeconds = (startTime - nowTime) / 1000;
-        }else if (nowTime > endTime){
+        } else if (nowTime > endTime) {
             //秒杀已经结束
             seckillStatus = 2;
-        }else {
+        } else {
             //秒杀开始
             seckillStatus = 1;
             remainSeconds = 0;

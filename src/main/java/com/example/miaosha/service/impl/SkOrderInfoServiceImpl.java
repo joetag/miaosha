@@ -101,6 +101,7 @@ public class SkOrderInfoServiceImpl implements SkOrderInfoService {
 
     /**
      * 生成订单
+     *
      * @param user
      * @param goodsVo
      * @return
@@ -111,12 +112,12 @@ public class SkOrderInfoServiceImpl implements SkOrderInfoService {
         SkGoods goods = skGoodsService.queryGoodsVoById(goodsVo.getId());
         SkGoodsSeckill goodsSeckill = skGoodsSeckillService.queryById(goodsVo.getId());
         if (goodsSeckill.getStockCount() > 1) {
-            goods.setGoodsStock(goods.getGoodsStock() - 1);
+            //goods.setGoodsStock(goods.getGoodsStock() - 1);
             goodsSeckill.setStockCount(goodsSeckill.getStockCount() - 1);
         } else {
             throw new GlobalException(RespBeanEnum.SECKILL_OVER);
         }
-        skGoodsService.update(goods);
+        //skGoodsService.update(goods);
         skGoodsSeckillService.update(goodsSeckill);
         //生成订单信息
         SkOrderInfo order = new SkOrderInfo();
