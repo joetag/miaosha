@@ -103,10 +103,22 @@ public class SkUserServiceImpl implements SkUserService {
 
     /**
      * 典型缓存同步场景：更新密码
+     * 删除redis然后重新存进新的对象
+     * 让MySQL和Redis中的数据同
      */
     @Override
-    public boolean updatePassword(String token, long id, String formPass) {
-        return false;
+    public RespBean updatePassword(String usertTocket, Long id, String passWord, HttpServletResponse response, HttpServletRequest request) {
+        SkUser user = this.getUserByCookie(response,usertTocket);
+        if (user == null){
+            throw new GlobalException(RespBeanEnum.MOBILE_NOT_EXIST);
+        }
+        user.setPassword(MD5Util.inputPassToFromPass(passWord));
+        int res = skUserDao.update(user);
+        if (res == 1){
+            redisTemplate.delete("user" + usertTocket);
+            return RespBean.success();
+        }
+        return RespBean.error(RespBeanEnum.PASSWORD_ERROR);
     }
 
     /**

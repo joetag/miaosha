@@ -4,7 +4,6 @@ import com.example.miaosha.service.SkUserService;
 import com.example.miaosha.vo.LoginVo;
 import com.example.miaosha.vo.RespBean;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class LoginController {
 
-    @Autowired
     @Resource
     SkUserService skUserService;
 

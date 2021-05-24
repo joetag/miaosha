@@ -81,6 +81,7 @@
         var timeout;
         if (remainSeconds > 0) {//秒杀还没开始，倒计时
             //$("#buyButton").attr("disabled", true);
+            $('seckillTip').html("秒杀倒计时: " + remainSeconds + "秒");
             timeout = setTimeout(function () {
                 $("#countDown").text(remainSeconds - 1);
                 $("#remainSeconds").val(remainSeconds - 1);

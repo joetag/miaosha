@@ -59,18 +59,22 @@ public interface SkUserService extends IService<SkUser> {
     boolean deleteById(Object id);
 
     /**
-     * 典型缓存同步场景：更新密码
-     * @param token
+     * 更新密码
+     *
+     * @param usertTocket
      * @param id
-     * @param formPass
+     * @param passWord
+     * @param response
+     * @param request
      * @return
      */
-    boolean updatePassword(String token, long id, String formPass);
+
+    RespBean updatePassword(String usertTocket, Long id, String passWord, HttpServletResponse response, HttpServletRequest request);
 
     /**
      * 登陆信息
      *
-     * @param loginVo 登陆信息
+     * @param loginVo  登陆信息
      * @param response
      * @param request
      * @return 返回类型
@@ -80,7 +84,9 @@ public interface SkUserService extends IService<SkUser> {
 
     /**
      * 根据cookie获取用户
+     *
      * @param userTicket
+     * @param response
      * @return
      */
     SkUser getUserByCookie(HttpServletResponse response, String userTicket);
