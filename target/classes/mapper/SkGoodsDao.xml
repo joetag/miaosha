@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.miaosha.dao.SkGoodsDao">
+
+    <resultMap id="BaseResultMap" type="com.example.miaosha.entity.SkGoods">
+        <!--@Table sk_goods-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="goodsTitle" column="goods_title" jdbcType="VARCHAR"/>
+        <result property="goodsImg" column="goods_img" jdbcType="VARCHAR"/>
+        <result property="goodsDetail" column="goods_detail" jdbcType="OTHER"/>
+        <result property="goodsPrice" column="goods_price" jdbcType="NUMERIC"/>
+        <result property="goodsStock" column="goods_stock" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="queryAllGoodsVo" resultType="com.example.miaosha.vo.GoodsVo">
+        select
+            g.id as "id", g.goods_stock as "goodsStock", goods_price as "goodsPrice", goods_detail as "goodsDetail",
+            goods_img as "goodsImg", g.goods_title as "goodsTitle", g.goods_name as "goodsName",
+            sg.end_date as "endDate", sg.start_date as "startDate", sg.stock_count as "stockCount", sg.seckill_price as "seckillPrice"
+        from sk_goods g
+                 left join sk_goods_seckill as sg on g.id = sg.id
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select id,
+               goods_name,
+               goods_title,
+               goods_img,
+               goods_detail,
+               goods_price,
+               goods_stock
+        from seckill.sk_goods
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select id,
+               goods_name,
+               goods_title,
+               goods_img,
+               goods_detail,
+               goods_price,
+               goods_stock
+        from seckill.sk_goods
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryGoodsVoById" resultType="com.example.miaosha.vo.GoodsVo">
+        select
+            g.id as "id", g.goods_stock as "goodsStock", goods_price as "goodsPrice", goods_detail as "goodsDetail",
+            goods_img as "goodsImg", g.goods_title as "goodsTitle", g.goods_name as "goodsName",
+            sg.end_date as "endDate", sg.start_date as "startDate", sg.stock_count as "stockCount", sg.seckill_price as "seckillPrice"
+        from sk_goods g
+                 left join sk_goods_seckill as sg on g.id = sg.id
+        where g.id = #{goodsId}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        id, goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock
+        from seckill.sk_goods
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsTitle != null and goodsTitle != ''">
+                and goods_title = #{goodsTitle}
+            </if>
+            <if test="goodsImg != null and goodsImg != ''">
+                and goods_img = #{goodsImg}
+            </if>
+            <if test="goodsDetail != null">
+                and goods_detail = #{goodsDetail}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="goodsStock != null">
+                and goods_stock = #{goodsStock}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into seckill.sk_goods(goods_name, goods_title, goods_img, goods_detail, goods_price, goods_stock)
+        values (#{goodsName}, #{goodsTitle}, #{goodsImg}, #{goodsDetail}, #{goodsPrice}, #{goodsStock})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update seckill.sk_goods
+        <set>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsTitle != null and goodsTitle != ''">
+                goods_title = #{goodsTitle},
+            </if>
+            <if test="goodsImg != null and goodsImg != ''">
+                goods_img = #{goodsImg},
+            </if>
+            <if test="goodsDetail != null">
+                goods_detail = #{goodsDetail},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice},
+            </if>
+            <if test="goodsStock != null">
+                goods_stock = #{goodsStock},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from seckill.sk_goods
+        where id = #{id}
+    </delete>
+
+</mapper>
