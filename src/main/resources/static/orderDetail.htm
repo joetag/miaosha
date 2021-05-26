@@ -89,9 +89,9 @@
             },
             success:function(data){
                 if(data.code === 200){
-                    render(data.data);
+                    render(data.obj);
                 }else{
-                    layer.msg(data.msg);
+                    layer.msg(data.message);
                 }
             },
             error:function(){
