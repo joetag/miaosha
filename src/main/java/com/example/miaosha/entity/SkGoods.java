@@ -18,32 +18,35 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SkGoods implements Serializable {
+
     private static final long serialVersionUID = -73278331108151298L;
     /**
-    * 商品ID
-    */
+     * 商品ID
+     */
     private Long id;
     /**
-    * 商品名称
-    */
+     * 商品名称
+     */
     private String goodsName;
     /**
-    * 商品标题
-    */
+     * 商品标题
+     */
     private String goodsTitle;
     /**
-    * 商品图片
-    */
+     * 商品图片
+     */
     private String goodsImg;
     /**
-    * 商品详情
-    */
+     * 商品详情
+     */
     private Object goodsDetail;
-    
+    /**
+     * 商品的价格
+     */
     private Double goodsPrice;
     /**
-    * 商品库存，-1表示没有限制
-    */
+     * 商品库存，-1表示没有限制
+     */
     private Integer goodsStock;
 
 }

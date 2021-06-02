@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2021-05-06 15:03:13
  */
 @Mapper
-public interface SkGoodsDao {
+public interface SkGoodsDao{
 
     /**
      * 通过ID查询单条数据

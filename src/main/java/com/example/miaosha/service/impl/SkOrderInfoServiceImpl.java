@@ -1,5 +1,6 @@
 package com.example.miaosha.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.miaosha.entity.*;
 import com.example.miaosha.dao.SkOrderInfoDao;
 import com.example.miaosha.exception.GlobalException;
@@ -10,11 +11,15 @@ import com.example.miaosha.service.SkOrderService;
 import com.example.miaosha.vo.GoodsVo;
 import com.example.miaosha.vo.RespBeanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * (SkOrderInfo)表服务实现类
@@ -35,6 +40,10 @@ public class SkOrderInfoServiceImpl implements SkOrderInfoService {
 
     @Autowired
     private SkGoodsSeckillService skGoodsSeckillService;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
 
     /**
      * 通过ID查询单条数据
@@ -107,18 +116,23 @@ public class SkOrderInfoServiceImpl implements SkOrderInfoService {
      * @return
      */
     @Override
-    public SkOrderInfo secKill(SkUser user, GoodsVo goodsVo) {
-        //更新商品信息
+    @Transactional
+    public SkOrderInfo secKill(SkUser user, @NotNull GoodsVo goodsVo) {
+        //更新商品信息,为了防止事务同时进来，加锁
         SkGoods goods = skGoodsService.queryGoodsVoById(goodsVo.getId());
+
         SkGoodsSeckill goodsSeckill = skGoodsSeckillService.queryById(goodsVo.getId());
         if (goodsSeckill.getStockCount() > 1) {
-            //goods.setGoodsStock(goods.getGoodsStock() - 1);
+
             goodsSeckill.setStockCount(goodsSeckill.getStockCount() - 1);
         } else {
             throw new GlobalException(RespBeanEnum.SECKILL_OVER);
         }
-        //skGoodsService.update(goods);
-        skGoodsSeckillService.update(goodsSeckill);
+
+        SkGoodsSeckill seckillResult = skGoodsSeckillService.update(goodsSeckill);
+        if (seckillResult.getStockCount() < 1) {
+            return null;
+        }
         //生成订单信息
         SkOrderInfo order = new SkOrderInfo();
         order.setGoodsId(goods.getId());
@@ -139,6 +153,8 @@ public class SkOrderInfoServiceImpl implements SkOrderInfoService {
         skOrder.setUserId(user.getId());
         skOrderService.insert(skOrder);
 
+
+        redisTemplate.opsForValue().set("order:" + user.getId() + ":" + goods.getId(), order);
         return order;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.miaosha.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.miaosha.entity.SkGoodsSeckill;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 2021-05-06 15:07:11
  */
 @Mapper
-public interface SkGoodsSeckillDao {
+public interface SkGoodsSeckillDao extends BaseMapper<SkGoodsSeckill> {
 
     /**
      * 通过ID查询单条数据
@@ -46,6 +47,7 @@ public interface SkGoodsSeckillDao {
      * @param skGoodsSeckill 实例对象
      * @return 影响行数
      */
+    @Override
     int insert(SkGoodsSeckill skGoodsSeckill);
 
     /**

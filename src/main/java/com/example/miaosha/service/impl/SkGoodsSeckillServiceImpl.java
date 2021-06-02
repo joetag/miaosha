@@ -1,5 +1,6 @@
 package com.example.miaosha.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.example.miaosha.entity.SkGoodsSeckill;
 import com.example.miaosha.dao.SkGoodsSeckillDao;
 import com.example.miaosha.service.SkGoodsSeckillService;
@@ -64,6 +65,11 @@ public class SkGoodsSeckillServiceImpl implements SkGoodsSeckillService {
     public SkGoodsSeckill update(SkGoodsSeckill skGoodsSeckill) {
         this.skGoodsSeckillDao.update(skGoodsSeckill);
         return this.queryById(skGoodsSeckill.getId());
+    }
+
+    @Override
+    public int update(SkGoodsSeckill skGoodsSeckill, Wrapper<SkGoodsSeckill> updateWrapper) {
+        return skGoodsSeckillDao.update(skGoodsSeckill, updateWrapper);
     }
 
     /**

@@ -28,6 +28,8 @@ public class GlobalExceptionHandler {
             respBean.setMessage("参数校验异常" + ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
             return respBean;
         }
+        System.out.println("到全局异常捕捉器这里了");
+        e.printStackTrace();
         return RespBean.error(RespBeanEnum.ERROR);
     }
 }

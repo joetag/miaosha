@@ -72,8 +72,9 @@
                 goodsId: $("#goodsId").val(),
             },
             success: function (data) {
-                if (data.code === 0) {
-                    var result = data.obj;
+                if (data.code === 200) {
+                    //这里的result就是orderId
+                    var result = data.obj.id;
                     if (result < 0) {
                         layer.msg("对不起，秒杀失败");
                     } else if (result === 0) {//继续轮询
@@ -83,14 +84,14 @@
                     } else {
                         layer.confirm("恭喜你，秒杀成功！查看订单？", {btn: ["确定", "取消"]},
                             function () {
-                                window.location.href = "/orderDetail.htm?orderId=" + result.order.id;
+                                window.location.href = "/orderDetail.htm?orderId=" + result;
                             },
                             function () {
                                 layer.closeAll();
                             });
                     }
                 } else {
-                    layer.msg(data.msg);
+                    layer.msg(data.message);
                 }
             },
             error: function () {
@@ -107,15 +108,17 @@
                 goodsId: $("#goodsId").val(),
             },
             success: function (data) {
+                console.log(data);
                 if (data.code === 200) {
-                    window.location.href = "/orderDetail.htm?orderId=" + data.obj.order.id;
-                    //getSeckillResult($("#goodsId").val());
+                    //window.location.href = "/orderDetail.htm?orderId=" + data.obj.order.id;
+                    getSeckillResult($("#goodsId").val());
                 } else {
                     layer.msg(data.message);
                 }
             },
-            error: function () {
-                layer.msg("客户端请求有误");
+            error: function (data) {
+                console.log(data);
+                //layer.msg("客户端请求有误");
             }
         });
     }

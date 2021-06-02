@@ -1,8 +1,11 @@
 package com.example.miaosha.controller;
 
 import com.example.miaosha.entity.SkUser;
+import com.example.miaosha.rabbitmq.MQSender;
+import com.example.miaosha.rabbitmq.SeckillMessage;
 import com.example.miaosha.service.SkUserService;
 import com.example.miaosha.vo.RespBean;
+import com.example.miaosha.vo.RespBeanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +27,9 @@ public class SkUserController {
     @Autowired
     private SkUserService skUserService;
 
+    @Autowired
+    private MQSender mqSender;
+
     /**
      * 通过主键查询单条数据
      *
@@ -43,5 +49,34 @@ public class SkUserController {
     @RequestMapping("/info")
     public RespBean info(SkUser user){
         return RespBean.success(user);
+    }
+
+    /**
+     * 测试发送mq消息
+     */
+    @RequestMapping("/mq")
+    @ResponseBody
+    public void mq(){
+        SkUser user = new SkUser();
+        user.setId("12");
+        SeckillMessage seckillMessage = new SeckillMessage();
+        seckillMessage.setUser(user);
+        seckillMessage.setGoodsId(2L);
+        mqSender.sendSeckillMessage(seckillMessage);
+    }
+
+    /**
+     * 测试发送mq消息
+     */
+    @RequestMapping("/mq/fanout")
+    @ResponseBody
+    public void mq1(){
+        mqSender.send("hello");
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public RespBean test(){
+        return RespBean.success();
     }
 }

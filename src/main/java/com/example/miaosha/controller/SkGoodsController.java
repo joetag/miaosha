@@ -2,12 +2,14 @@ package com.example.miaosha.controller;
 
 import com.example.miaosha.entity.SkGoods;
 import com.example.miaosha.entity.SkUser;
+import com.example.miaosha.rabbitmq.MQSender;
 import com.example.miaosha.service.SkGoodsService;
 import com.example.miaosha.vo.DetailVo;
 import com.example.miaosha.vo.GoodsVo;
 
 import com.example.miaosha.vo.RespBean;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -22,6 +24,10 @@ import org.thymeleaf.util.StringUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -42,10 +48,10 @@ public class SkGoodsController {
     private SkGoodsService skGoodsService;
 
     @Autowired
-    RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    ThymeleafViewResolver thymeleafViewResolver;
+    private ThymeleafViewResolver thymeleafViewResolver;
 
 
     /**
@@ -164,4 +170,5 @@ public class SkGoodsController {
         }
         return html;
     }
+
 }

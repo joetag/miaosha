@@ -1,6 +1,8 @@
 package com.example.miaosha.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.example.miaosha.entity.SkGoodsSeckill;
+
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public interface SkGoodsSeckillService {
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param limit  查询条数
      * @return 对象列表
      */
     List<SkGoodsSeckill> queryAllByLimit(int offset, int limit);
@@ -43,6 +45,15 @@ public interface SkGoodsSeckillService {
      * @return 实例对象
      */
     SkGoodsSeckill update(SkGoodsSeckill skGoodsSeckill);
+
+    /**
+     * 安全修改
+     *
+     * @param skGoodsSeckill
+     * @param updateWrapper
+     * @return
+     */
+    int update(SkGoodsSeckill skGoodsSeckill, Wrapper<SkGoodsSeckill> updateWrapper);
 
     /**
      * 通过主键删除数据

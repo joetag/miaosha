@@ -17,12 +17,12 @@ public enum RespBeanEnum {
      * 成功返回的类型
      */
     SUCCESS(200, "SUCCESS"),
-    ERROR(500, "服务端异常"),
+    ERROR(500, "服务端异常+我看看是哪里异常1"),
 
     /**
      * 失败的类型
      */
-    SERVER_ERROR(500100, "服务端异常"),
+    SERVER_ERROR(500100, "服务端异常+我看看是哪里异常2"),
     BIND_ERROR(500101, "参数校验异常：%s"),
     ACCESS_LIMIT_REACHED(500104, "访问高峰期，请稍等！"),
 

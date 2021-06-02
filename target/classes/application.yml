@@ -27,6 +27,21 @@ spring:
     host: 127.0.0.1
     # publisher-confirms: true
     publisher-returns: true
+    port: 5672
+    listener:
+      simple:
+        #消费最小数量
+        concurrency: 10
+        #消费者最大数量
+        max-concurrency: 10
+        #每次只能处理一条消息
+        prefetch: 1
+        #消息被拒绝时是否重新进入队列
+        default-requeue-rejected: true
+    template:
+      retry:
+        # 发布重试
+        enabled: true
   redis:
     host: 127.0.0.1
     database: 0
